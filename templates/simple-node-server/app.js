@@ -1,24 +1,14 @@
-// Import all dependencies & middleware here
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+const http = require('http');
 
-import { userController } from './controller';
+const hostname = '127.0.0.1';
+const port = 3000;
 
-// Init an Express App.
-const app = express();
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+});
 
-// Use your dependencies here
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-// use all controllers(APIs) here
-app.use('/', userController);
-
-// Start Server here
-app.listen(8080, () => {
-  console.log('Server is running on port 8080!');
-  mongoose.connect('mongodb://localhost/test').then(() => {
-    console.log('Conneted to mongoDB at port 27017');
-  });
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
